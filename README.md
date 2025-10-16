@@ -1,16 +1,101 @@
-# React + Vite
+# Лабораторна робота №1 — Створення базового React‑застосунку (Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ця робота демонструє базові кроки зі створення односторінкового застосунку на React за допомогою Vite: ініціалізація проєкту, налаштування структури папок, стилів і компонування, а також реалізація простих статичних компонентів: `Header`, `Main`, `Footer`, `TodoInput`, `TodoList`, `TodoItem`.
 
-Currently, two official plugins are available:
+## Мета
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Освоїти швидку ініціалізацію проєкту на базі Vite.
+- Організувати зрозумілу структуру вихідних файлів.
+- Налаштувати базові стилі та змінні теми.
+- Створити прості статичні компоненти та скласти їх у сторінку.
 
-## React Compiler
+## Стек і вимоги
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Node.js 18+ (рекомендовано LTS)
+- Vite 7
+- React 19
 
-## Expanding the ESLint configuration
+## Структура проєкту
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+my-todo-app/
+├─ index.html
+├─ package.json
+├─ vite.config.js
+├─ public/
+└─ src/
+	├─ main.jsx            # Точка входу React
+	├─ App.jsx             # Кореневий компонент застосунку
+	├─ index.css           # Базові стилі (ресети, дрібні утиліти)
+	├─ App.css             # Тема та стилі інтерфейсу
+	└─ components/
+		├─ Header.jsx       # Шапка: заголовок, кнопка "New Task"
+		├─ Main.jsx         # Контейнер основного контенту
+		├─ Footer.jsx       # Підвал із копірайтом
+		├─ TodoInput.jsx    # Поле введення нової задачі (поки без логіки)
+		├─ TodoList.jsx     # Список задач (демо-дані)
+		└─ TodoItem.jsx     # Окремий елемент задачі
+```
+
+## Приклад реалізації компонентів
+
+- `Header` — відображає назву застосунку та кнопку додавання задачі.
+- `Main` — містить панель з полем вводу (`TodoInput`) та списком (`TodoList`).
+- `Footer` — простий підвал з роком та підписом.
+- `TodoInput` — форма з інпутом і кнопкою "Add" (подання перехоплене, логіка не реалізована).
+- `TodoList` — використовує демо-дані та рендерить `TodoItem`.
+- `TodoItem` — назва, чекбокс "done", бейдж пріоритету, кнопка видалення (статичні стани).
+
+## Стилі й тема
+
+У файлі `src/App.css` налаштовано змінні теми (`:root`) та сучасний світлий вигляд інтерфейсу: кольори фону/поверхонь, акцентні кольори, тіні, радіуси, а також ховер/фокус‑стани для елементів керування. Базові глобальні стилі зібрані в `src/index.css` і не конфліктують із компонуванням.
+
+## Як запустити локально
+
+1) Встановіть залежності
+
+```powershell
+npm install
+```
+
+2) Запустіть режим розробки (з HMR)
+
+```powershell
+npm run dev
+```
+
+Після запуску у консолі зʼявиться локальна адреса (типово http://localhost:5173). Відкрийте її у браузері.
+
+3) Зібрати продакшн‑білд
+
+```powershell
+npm run build
+```
+
+4) Попередній перегляд зібраної версії
+
+```powershell
+npm run preview
+```
+
+## Ініціалізація проєкту з нуля (довідка)
+
+Нижче — стислий сценарій, якщо потрібно повторити створення проєкту:
+
+```powershell
+# Створення нового застосунку на базі Vite
+npm create vite@latest my-todo-app -- --template react
+
+cd my-todo-app
+npm install
+
+# Запуск у режимі розробки
+npm run dev
+```
+
+Після цього додаємо папку `components/`, створюємо файли компонентів, переносимо стилі до `App.css` й `index.css`, підключаємо їх у `main.jsx`/`App.jsx`.
+
+## Примітки
+
+- Компоненти наразі статичні — їхня поведінка (додавання/видалення задач) буде реалізована в наступних роботах.
+- ESLint і плагіни додані для базової перевірки якості коду.
