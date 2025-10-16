@@ -1,0 +1,13 @@
+/* Minimal base styles to complement App.css */
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Avoid global layout overrides; App.css controls layout/theme */
+body { margin: 0; min-width: 320px; }
+
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; }
