@@ -1,14 +1,13 @@
 import TodoItem from './TodoItem.jsx';
 
-export default function TodoList({ tasks }) {
+export default function TodoList({ tasks, setTasks }) {
   return (
       <ul className="todo-list">
         {tasks.map(task => (
             <TodoItem
                 key={task.id}
-                title={task.title}
-                done={task.done}
-                priority={task.priority}
+                task={task}
+                setTasks={setTasks}
             />
         ))}
       </ul>

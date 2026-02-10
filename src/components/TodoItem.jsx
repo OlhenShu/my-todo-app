@@ -1,21 +1,31 @@
-export default function TodoItem({ title, done, priority }) {
+export default function TodoItem({ task, setTasks }) {
+
+    function handleToggle() {
+        setTasks(prev =>
+            prev.map(t =>
+                t.id === task.id ? { ...t, done: !t.done } : t
+            )
+        );
+    }
+
     return (
-        <li className={`todo-item ${done ? 'is-done' : ''}`}>
+        <li className={`todo-item ${task.done ? 'is-done' : ''}`}>
             <label className="todo-item__body">
                 <input
                     className="todo-item__checkbox"
                     type="checkbox"
-                    defaultChecked={done}
-                    aria-label={`Mark "${title}" as done`}
+                    checked={task.done}
+                    onChange={handleToggle}
                 />
-                <span className="todo-item__title">{title}</span>
+
+                <span className="todo-item__title">{task.title}</span>
             </label>
 
-            <span className={`todo-item__tag todo-item__tag--${priority}`}>
-        {priority}
+            <span className={`todo-item__tag todo-item__tag--${task.priority}`}>
+        {task.priority}
       </span>
 
-            <button className="todo-item__remove" type="button" aria-label="Remove task">
+            <button className="todo-item__remove" type="button">
                 ×
             </button>
         </li>
