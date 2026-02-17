@@ -5,20 +5,23 @@ import Footer from './components/Footer.jsx';
 import './App.css';
 
 export default function App() {
-
     const [tasks, setTasks] = useState([
         { id: 1, title: 'Learn React basics', done: false, priority: 'high' },
-        { id: 2, title: 'Build To-Do layout', done: true, priority: 'low' }
+        { id: 2, title: 'Build To-Do layout', done: true, priority: 'low' },
     ]);
+
+    const [filter, setFilter] = useState('all'); // all | active | completed
 
     return (
         <div className="app">
             <Header title="My To-Do App" />
-            <Main tasks={tasks} setTasks={setTasks} />
+            <Main
+                tasks={tasks}
+                setTasks={setTasks}
+                filter={filter}
+                setFilter={setFilter}
+            />
             <Footer />
         </div>
     );
 }
-
-
-
