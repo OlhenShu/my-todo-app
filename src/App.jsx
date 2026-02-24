@@ -11,17 +11,29 @@ export default function App() {
     ]);
 
     const [filter, setFilter] = useState('all'); // all | active | completed
+    const [showInput, setShowInput] = useState(false);
 
-    return (
-        <div className="app">
-            <Header title="My To-Do App" />
-            <Main
-                tasks={tasks}
-                setTasks={setTasks}
-                filter={filter}
-                setFilter={setFilter}
-            />
-            <Footer />
-        </div>
-    );
+    function removeTask(id) {
+    const task = tasks.find(t => t.id === id);
+
+    if (!window.confirm(`Delete "${task.title}"?`)) return;
+
+    setTasks(prev => prev.filter(t => t.id !== id));
+  }
+
+  return (
+    <div className="app">
+      <Header title="My To-Do App" onAddClick={() => setShowInput(prev => !prev)} />
+      <Main
+        tasks={tasks}
+        setTasks={setTasks}
+        filter={filter}
+        setFilter={setFilter}
+        removeTask={removeTask}
+        showInput={showInput}
+        setShowInput={setShowInput}
+      />
+      <Footer />
+    </div>
+  );
 }

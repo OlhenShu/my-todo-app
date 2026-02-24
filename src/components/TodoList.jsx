@@ -1,6 +1,6 @@
 import TodoItem from './TodoItem.jsx';
 
-export default function TodoList({ tasks, setTasks, filter }) {
+export default function TodoList({ tasks, setTasks, filter, removeTask }) {
     const visibleTasks = tasks.filter((t) => {
         if (filter === 'active') return !t.done;
         if (filter === 'completed') return t.done;
@@ -14,7 +14,12 @@ export default function TodoList({ tasks, setTasks, filter }) {
             ) : (
                 <ul className="todo-list" role="list">
                     {visibleTasks.map((task) => (
-                        <TodoItem key={task.id} task={task} setTasks={setTasks} />
+                        <TodoItem
+                            key={task.id}
+                            task={task}
+                            setTasks={setTasks}
+                            removeTask={removeTask}
+                        />
                     ))}
                 </ul>
             )}

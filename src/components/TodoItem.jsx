@@ -1,4 +1,4 @@
-export default function TodoItem({ task, setTasks }) {
+export default function TodoItem({ task, setTasks, removeTask }) {
 
     function handleToggle() {
         setTasks(prev =>
@@ -25,7 +25,13 @@ export default function TodoItem({ task, setTasks }) {
         {task.priority}
       </span>
 
-            <button className="todo-item__remove" type="button">
+            <button
+                className="todo-item__remove"
+                type="button"
+                onClick={() => removeTask(task.id)}
+                aria-label="Remove task"
+                title="Remove"
+            >
                 ×
             </button>
         </li>

@@ -1,15 +1,50 @@
-export default function TodoInput() {
-  return (
-    <form className="todo-input" onSubmit={(e) => e.preventDefault()}>
-      <label htmlFor="new-task" className="todo-input__label">New task</label>
-      <input
-        id="new-task"
-        className="todo-input__field"
-        type="text"
-        placeholder="Type a task..."
-        aria-label="Task title"
-      />
-      <button className="todo-input__submit" type="submit">Add</button>
-    </form>
-  );
+import {useState} from 'react';
+
+export default function TodoInput({setTasks, setShowInput}) {
+    const [title, setTitle] = useState('');
+    const [priority, setPriority] = useState('low');
+
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        if (!title.trim()) return;
+
+        const newTask = {
+            id: Date.now(),
+            title: title.trim(),
+            done: false,
+            priority: priority
+        };
+
+        setTasks(prev => [...prev, newTask]);
+
+        setTitle('');
+        setPriority('low');
+
+        if (setShowInput) {
+            setShowInput(false);
+        }
+    }
+
+    return (
+        <form onSubmit={handleSubmit} className="todo-input">
+            <input
+                type="text"
+                placeholder="Enter task..."
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+            />
+
+            <select
+                value={priority}
+                onChange={(e) => setPriority(e.target.value)}
+            >
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+
+            <button type="submit">Add</button>
+        </form>
+    );
 }

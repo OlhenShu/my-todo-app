@@ -1,11 +1,11 @@
 import TodoInput from './TodoInput.jsx';
 import TodoList from './TodoList.jsx';
 
-export default function Main({ tasks, setTasks, filter, setFilter }) {
+export default function Main({ tasks, setTasks, filter, setFilter, removeTask, showInput, setShowInput }) {
     return (
         <main className="main">
             <section className="panel">
-                <TodoInput />
+                {showInput && <TodoInput setTasks={setTasks} setShowInput={setShowInput} />}
 
                 <div className="filters">
                     <button
@@ -33,7 +33,12 @@ export default function Main({ tasks, setTasks, filter, setFilter }) {
                     </button>
                 </div>
 
-                <TodoList tasks={tasks} setTasks={setTasks} filter={filter} />
+                <TodoList
+                    tasks={tasks}
+                    setTasks={setTasks}
+                    filter={filter}
+                    removeTask={removeTask}
+                />
             </section>
         </main>
     );
