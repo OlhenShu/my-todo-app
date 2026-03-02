@@ -8,6 +8,15 @@ export default function TodoItem({ task, setTasks, removeTask }) {
         );
     }
 
+    function handlePriorityChange(e) {
+        const newPriority = e.target.value;
+        setTasks(prev =>
+            prev.map(t =>
+                t.id === task.id ? { ...t, priority: newPriority } : t
+            )
+        );
+    }
+
     return (
         <li className={`todo-item ${task.done ? 'is-done' : ''}`}>
             <label className="todo-item__body">
@@ -21,9 +30,15 @@ export default function TodoItem({ task, setTasks, removeTask }) {
                 <span className="todo-item__title">{task.title}</span>
             </label>
 
-            <span className={`todo-item__tag todo-item__tag--${task.priority}`}>
-        {task.priority}
-      </span>
+            <select
+                className={`todo-item__priority todo-item__priority--${task.priority}`}
+                value={task.priority}
+                onChange={handlePriorityChange}
+            >
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
 
             <button
                 className="todo-item__remove"

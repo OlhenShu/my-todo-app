@@ -1,14 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from './components/Header.jsx';
 import Main from './components/Main.jsx';
 import Footer from './components/Footer.jsx';
 import './App.css';
 
 export default function App() {
-    const [tasks, setTasks] = useState([
-        { id: 1, title: 'Learn React basics', done: false, priority: 'high' },
-        { id: 2, title: 'Build To-Do layout', done: true, priority: 'low' },
-    ]);
+    const [tasks, setTasks] = useState(() => {
+        const stored = localStorage.getItem('app-data');
+        return stored ? JSON.parse(stored) : [
+            { id: 1, title: 'Learn React basics', done: false, priority: 'high' },
+            { id: 2, title: 'Build To-Do layout', done: true, priority: 'low' },
+        ];
+    });
+
+    useEffect(() => {
+        localStorage.setItem('app-data', JSON.stringify(tasks));
+    }, [tasks]);
 
     const [filter, setFilter] = useState('all'); // all | active | completed
     const [showInput, setShowInput] = useState(false);
@@ -33,7 +40,7 @@ export default function App() {
         showInput={showInput}
         setShowInput={setShowInput}
       />
-      <Footer />
+      <Footer activeCount={tasks.filter(t => !t.done).length} />
     </div>
   );
 }

@@ -7,10 +7,16 @@ export default function TodoList({ tasks, setTasks, filter, removeTask }) {
         return true; // all
     });
 
+    const getEmptyMessage = () => {
+        if (filter === 'active') return 'No active tasks. Good job!';
+        if (filter === 'completed') return 'No completed tasks yet.';
+        return 'Your to-do list is empty.';
+    };
+
     return (
         <>
             {visibleTasks.length === 0 ? (
-                <p className="empty-state">No tasks to display</p>
+                <p className="empty-state">{getEmptyMessage()}</p>
             ) : (
                 <ul className="todo-list" role="list">
                     {visibleTasks.map((task) => (
