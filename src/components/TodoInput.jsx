@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-export default function TodoInput({setTasks, setShowInput}) {
+export default function TodoInput({ addTask, setShowInput }) {
     const [title, setTitle] = useState('');
     const [priority, setPriority] = useState('low');
 
@@ -9,14 +9,7 @@ export default function TodoInput({setTasks, setShowInput}) {
 
         if (!title.trim()) return;
 
-        const newTask = {
-            id: Date.now(),
-            title: title.trim(),
-            done: false,
-            priority: priority
-        };
-
-        setTasks(prev => [...prev, newTask]);
+        addTask(title.trim(), priority);
 
         setTitle('');
         setPriority('low');
@@ -30,12 +23,14 @@ export default function TodoInput({setTasks, setShowInput}) {
         <form onSubmit={handleSubmit} className="todo-input">
             <input
                 type="text"
+                className="todo-input__field"
                 placeholder="Enter task..."
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
             />
 
             <select
+                className="todo-input__select"
                 value={priority}
                 onChange={(e) => setPriority(e.target.value)}
             >
@@ -44,7 +39,7 @@ export default function TodoInput({setTasks, setShowInput}) {
                 <option value="high">High</option>
             </select>
 
-            <button type="submit">Add</button>
+            <button type="submit" className="todo-input__submit">Add</button>
         </form>
     );
 }

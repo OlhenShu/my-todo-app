@@ -1,9 +1,9 @@
 import TodoItem from './TodoItem.jsx';
 
-export default function TodoList({ tasks, setTasks, filter, removeTask }) {
+export default function TodoList({ tasks, filter, updateTask, removeTask }) {
     const visibleTasks = tasks.filter((t) => {
         if (filter === 'active') return !t.done;
-        if (filter === 'completed') return t.done;
+        if (filter === 'completed') return !!t.done;
         return true; // all
     });
 
@@ -23,7 +23,7 @@ export default function TodoList({ tasks, setTasks, filter, removeTask }) {
                         <TodoItem
                             key={task.id}
                             task={task}
-                            setTasks={setTasks}
+                            updateTask={updateTask}
                             removeTask={removeTask}
                         />
                     ))}

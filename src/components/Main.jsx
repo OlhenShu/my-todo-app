@@ -1,12 +1,10 @@
 import TodoInput from './TodoInput.jsx';
 import TodoList from './TodoList.jsx';
 
-export default function Main({ tasks, setTasks, filter, setFilter, removeTask, showInput, setShowInput }) {
+export default function Main({ tasks, filter, setFilter, addTask, updateTask, removeTask, showInput, setShowInput, loading, error }) {
     return (
         <main className="main">
             <section className="panel">
-                {showInput && <TodoInput setTasks={setTasks} setShowInput={setShowInput} />}
-
                 <div className="filters">
                     <button
                         type="button"
@@ -33,10 +31,16 @@ export default function Main({ tasks, setTasks, filter, setFilter, removeTask, s
                     </button>
                 </div>
 
+                {showInput && <TodoInput addTask={addTask} setShowInput={setShowInput} />}
+
+                {loading && <p className="status-msg">Loading tasks from API...</p>}
+                {error && <p className="status-msg status-msg--error">Error: {error}</p>}
+
                 <TodoList
+                    key={filter}
                     tasks={tasks}
-                    setTasks={setTasks}
                     filter={filter}
+                    updateTask={updateTask}
                     removeTask={removeTask}
                 />
             </section>
