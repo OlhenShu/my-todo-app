@@ -1,6 +1,6 @@
 import TodoItem from './TodoItem.jsx';
 
-export default function TodoList({ tasks, filter, updateTask, removeTask }) {
+export default function TodoList({ tasks, filter, updateTask, removeTask, viewMode = 'list' }) {
     const visibleTasks = tasks.filter((t) => {
         if (filter === 'active') return !t.done;
         if (filter === 'completed') return !!t.done;
@@ -18,7 +18,7 @@ export default function TodoList({ tasks, filter, updateTask, removeTask }) {
             {visibleTasks.length === 0 ? (
                 <p className="empty-state">{getEmptyMessage()}</p>
             ) : (
-                <ul className="todo-list" role="list">
+                <ul className={`todo-list todo-list--${viewMode}`} role="list">
                     {visibleTasks.map((task) => (
                         <TodoItem
                             key={task.id}

@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header.jsx';
+import Home from './components/Home.jsx';
 import Main from './components/Main.jsx';
+import About from './components/About.jsx';
 import Footer from './components/Footer.jsx';
 import TodoDetail from './components/TodoDetail.jsx';
 import NotFound from './components/NotFound.jsx';
@@ -191,10 +193,11 @@ export default function App() {
 
     return (
         <div className="app">
-            <Header title="My To-Do App" onAddClick={() => setShowInput(prev => !prev)} />
+            <Header title="My To-Do App" />
 
             <Routes>
-                <Route path="/" element={
+                <Route path="/" element={<Home />} />
+                <Route path="/tasks" element={
                     <Main
                         tasks={tasks}
                         filter={filter}
@@ -208,7 +211,8 @@ export default function App() {
                         error={error}
                     />
                 } />
-                <Route path="/todos/:id" element={<TodoDetail tasks={tasks} loading={loading} />} />
+                <Route path="/tasks/:id" element={<TodoDetail tasks={tasks} loading={loading} />} />
+                <Route path="/about" element={<About />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
             

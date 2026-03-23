@@ -57,7 +57,7 @@ export default function TodoItem({ task, updateTask, removeTask }) {
                         autoFocus
                     />
                 ) : (
-                    <Link to={`/todos/${task.id}`} className="todo-item__title" title="View details">
+                    <Link to={`/tasks/${task.id}`} className="todo-item__title" title="View details">
                         {task.title}
                     </Link>
                 )}

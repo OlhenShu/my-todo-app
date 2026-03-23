@@ -1,33 +1,66 @@
+import { useState } from 'react';
 import TodoInput from './TodoInput.jsx';
 import TodoList from './TodoList.jsx';
 
 export default function Main({ tasks, filter, setFilter, addTask, updateTask, removeTask, showInput, setShowInput, loading, error }) {
+    const [viewMode, setViewMode] = useState('list'); // 'list' | 'grid'
     return (
         <main className="main">
             <section className="panel">
-                <div className="filters">
-                    <button
-                        type="button"
-                        className={filter === 'all' ? 'is-active' : ''}
-                        onClick={() => setFilter('all')}
-                    >
-                        All
-                    </button>
+                <div className="main__header">
+                    <div className="main__header-left">
+                        <div className="filters">
+                            <button
+                                type="button"
+                                className={filter === 'all' ? 'is-active' : ''}
+                                onClick={() => setFilter('all')}
+                            >
+                                All
+                            </button>
+
+                            <button
+                                type="button"
+                                className={filter === 'active' ? 'is-active' : ''}
+                                onClick={() => setFilter('active')}
+                            >
+                                Active
+                            </button>
+
+                            <button
+                                type="button"
+                                className={filter === 'completed' ? 'is-active' : ''}
+                                onClick={() => setFilter('completed')}
+                            >
+                                Completed
+                            </button>
+                        </div>
+                        <div className="view-switcher">
+                            <button
+                                type="button"
+                                className={viewMode === 'list' ? 'is-active' : ''}
+                                onClick={() => setViewMode('list')}
+                                title="List view"
+                            >
+                                ☰
+                            </button>
+                            <button
+                                type="button"
+                                className={viewMode === 'grid' ? 'is-active' : ''}
+                                onClick={() => setViewMode('grid')}
+                                title="Grid view"
+                            >
+                                ⊞
+                            </button>
+                        </div>
+                    </div>
 
                     <button
+                        className="btn-add-task"
                         type="button"
-                        className={filter === 'active' ? 'is-active' : ''}
-                        onClick={() => setFilter('active')}
+                        aria-label="Add new task"
+                        onClick={() => setShowInput(prev => !prev)}
                     >
-                        Active
-                    </button>
-
-                    <button
-                        type="button"
-                        className={filter === 'completed' ? 'is-active' : ''}
-                        onClick={() => setFilter('completed')}
-                    >
-                        Completed
+                        {showInput ? '✕ Close' : '+ New Task'}
                     </button>
                 </div>
 
@@ -37,11 +70,12 @@ export default function Main({ tasks, filter, setFilter, addTask, updateTask, re
                 {error && <p className="status-msg status-msg--error">Error: {error}</p>}
 
                 <TodoList
-                    key={filter}
+                    key={`${filter}-${viewMode}`}
                     tasks={tasks}
                     filter={filter}
                     updateTask={updateTask}
                     removeTask={removeTask}
+                    viewMode={viewMode}
                 />
             </section>
         </main>
