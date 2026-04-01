@@ -1,6 +1,9 @@
 import { NavLink } from 'react-router-dom';
+import { useTheme } from '../contexts/ThemeContext.jsx';
 
 export default function Header() {
+    const { theme, toggleTheme } = useTheme();
+
     return (
         <header className="header">
             <div className="header__top">
@@ -10,6 +13,13 @@ export default function Header() {
                     <NavLink to="/tasks" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>Tasks</NavLink>
                     <NavLink to="/about" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>About</NavLink>
                 </nav>
+                <button 
+                    className="theme-toggle" 
+                    onClick={toggleTheme}
+                    title={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+                >
+                    {theme === 'light' ? '🌙' : '☀️'}
+                </button>
             </div>
         </header>
     );

@@ -1,9 +1,12 @@
-import { useState } from 'react';
 import TodoInput from './TodoInput.jsx';
 import TodoList from './TodoList.jsx';
+import { useTodo } from '../contexts/TodoContext.jsx';
+import { useSettings } from '../contexts/SettingsContext.jsx';
 
-export default function Main({ tasks, filter, setFilter, addTask, updateTask, removeTask, showInput, setShowInput, loading, error }) {
-    const [viewMode, setViewMode] = useState('list'); // 'list' | 'grid'
+export default function Main() {
+    const { tasks, loading, error } = useTodo();
+    const { filter, setFilter, viewMode, setViewMode, showInput, setShowInput } = useSettings();
+
     return (
         <main className="main">
             <section className="panel">
@@ -64,19 +67,12 @@ export default function Main({ tasks, filter, setFilter, addTask, updateTask, re
                     </button>
                 </div>
 
-                {showInput && <TodoInput addTask={addTask} setShowInput={setShowInput} />}
+                {showInput && <TodoInput />}
 
                 {loading && <p className="status-msg">Loading tasks from API...</p>}
                 {error && <p className="status-msg status-msg--error">Error: {error}</p>}
 
-                <TodoList
-                    key={`${filter}-${viewMode}`}
-                    tasks={tasks}
-                    filter={filter}
-                    updateTask={updateTask}
-                    removeTask={removeTask}
-                    viewMode={viewMode}
-                />
+                <TodoList />
             </section>
         </main>
     );

@@ -1,7 +1,9 @@
 import { useParams, Link } from 'react-router-dom';
+import { useTodo } from '../contexts/TodoContext.jsx';
 
-export default function TodoDetail({ tasks, loading }) {
+export default function TodoDetail() {
     const { id } = useParams();
+    const { tasks, loading } = useTodo();
     
     if (loading) return <div className="main"><section className="panel"><p className="status-msg">Loading task details...</p></section></div>;
     

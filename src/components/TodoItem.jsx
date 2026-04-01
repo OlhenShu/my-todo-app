@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTodo } from '../contexts/TodoContext.jsx';
 
-export default function TodoItem({ task, updateTask, removeTask }) {
+export default function TodoItem({ task }) {
+    const { updateTask, removeTask } = useTodo();
     const [isEditing, setIsEditing] = useState(false);
     const [editText, setEditText] = useState(task.title);
 

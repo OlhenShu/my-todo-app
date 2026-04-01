@@ -1,6 +1,10 @@
 import {useState} from 'react';
+import { useTodo } from '../contexts/TodoContext.jsx';
+import { useSettings } from '../contexts/SettingsContext.jsx';
 
-export default function TodoInput({ addTask, setShowInput }) {
+export default function TodoInput() {
+    const { addTask } = useTodo();
+    const { setShowInput } = useSettings();
     const [title, setTitle] = useState('');
     const [priority, setPriority] = useState('low');
 

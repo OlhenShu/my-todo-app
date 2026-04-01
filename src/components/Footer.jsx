@@ -1,4 +1,8 @@
-export default function Footer({ activeCount }) {
+import { useTodo } from '../contexts/TodoContext.jsx';
+
+export default function Footer() {
+  const { tasks } = useTodo();
+  const activeCount = tasks.filter(t => !t.done).length;
   const year = new Date().getFullYear();
   return (
     <footer className="footer">
